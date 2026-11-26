@@ -5,7 +5,7 @@ AI audiobook studio: turns public-domain / user-owned books into multi-voice aud
 Full design: `docs/ARCHITECTURE.md`. Read only the section you need.
 
 ## Status
-Phase 0 (architecture) awaiting owner approval. **Do not write app code until the owner approves the architecture / next phase.**
+Architecture drafted; owner decisions: English only, rented GPU OK, personal use only (see ARCHITECTURE.md §9). **Do not write app code until the owner explicitly approves starting a phase.**
 
 ## Stack
 - `web/` Next.js (TypeScript, App Router). UI only, no business logic.

@@ -86,7 +86,7 @@ Runs once per book, offline, results stored in DB and editable by the user.
 ## 5. Environmental audio
 
 - **Generation: MOSS-SoundEffect-v2.0** (1.3B DiT flow-matching, 48 kHz, ≤30 s, controllable duration, Apache-2.0) [D]. ~8 GB VRAM [E]. Loops for ambience are made by generating 20–30 s and crossfade-looping.
-- **Retrieval: a local asset library first**, generation second, so repeated sounds (footsteps, doors) are consistent and cheap. Library seeded from **Freesound CC0-only** (API key is free; CC-BY needs attribution so filter it out at first) [?]. Each asset stores licence + source URL. Avoid BBC Sound Effects (non-commercial licence) [?].
+- **Retrieval: a local asset library first**, generation second, so repeated sounds (footsteps, doors) are consistent and cheap. Library seeded from **Freesound** (free API key; CC0 + CC-BY, attribution stored) and **BBC Sound Effects** (non-commercial, OK for personal use) [?]. Each asset stores licence + source URL.
 - **Sync to speech**: segment start/end are known exactly (we generate per segment). Word-level times come from **ctc-forced-aligner** (BSD-2, commit 2026-11-25 [V]) aligning the known text to the generated audio. WhisperX (BSD-2, active [V]) is the fallback.
 - **Layers per chapter**: `narration/dialogue` → `SFX` → `ambience` → (optional) `music`.
 - **Mixing (FFmpeg)**: ambience ducked under speech with `sidechaincompress`, scene changes with `acrossfade` (default 2 s), SFX placed with `adelay`, final `loudnorm` to an audiobook target (ACX-style: RMS −23 to −18 dB, peak ≤ −3 dB). Ambience default −20 dB below speech, user-adjustable per layer.
@@ -189,11 +189,11 @@ Each phase ends with something you can try, and needs your OK before the next st
 
 ---
 
-## 9. Open questions for you
+## 9. Decisions (owner, 2026-11-26)
 
-1. English only to start? (Recommended. BookNLP is English-only.)
-2. OK to rent a cloud GPU for Phases 0, 3+ (pay per hour, switched off when idle)?
-3. Personal use only, or will you publish/sell the audiobooks? This changes which SFX licences and source rules matter.
+1. **English only** for now.
+2. **Rented cloud GPU approved** (pay per hour, switched off when idle).
+3. **Personal use only.** Not for sale or publishing. So CC-BY sounds are fine (attribution kept in the asset record), and non-commercial libraries like BBC Sound Effects (RemArc licence: personal/educational/research use [?]) are allowed. If this ever changes to publishing, re-check every asset licence first.
 
 ## Sources
 - Repos inspected: QwenLM/Qwen3-TTS, OpenMOSS/MOSS-TTS, OpenMOSS/MOSS-TTSD, hexgrad/kokoro, booknlp/booknlp, MahmoudAshraf97/ctc-forced-aligner, m-bain/whisperX, garethbjohnson/gutendex, gutenbergtools/libgutenberg, standardebooks/arthur-conan-doyle_the-hound-of-the-baskervilles
